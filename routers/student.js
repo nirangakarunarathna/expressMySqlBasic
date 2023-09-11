@@ -10,5 +10,9 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("*", (req, res) => {
+  res.status(404).send("Not Found");
+});
+
 // Exports the router. if else cannot access this file
 module.exports = router;
