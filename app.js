@@ -4,25 +4,18 @@ const express = require("express");
 //get express variable as a function and assign to a variable
 const app = express();
 
-//Get the web Server port. If doesn't exist a port in the server ,will get the manual define port number
-const port = process.env.PORT || 3000;
+const config = require("./common/config.json");
+const bodyParser = require("body-parser");
 
-//import the Routers
-const student = require("./routers/student");
-const user = require("./routers/user");
+const port = process.env.PORT || config.port;
 
-//Add middlewares - For all routers
-// app.use(testMiddleware);
+// middle wares
+app.use(bodyParser.json());
 
-//redirect to this API url to particular router file
-app.use("/api/student", testMiddleware, student);
-app.use("/api/user", user);
+//import the Controllers
+const store = require("./controllers/storeController");
 
-//Middleware
-function testMiddleware(req, res, next) {
-  console.log("Middleware is executed");
-  next();
-}
+app.use("/api/store", store);
 
 //listening to the port number
 app.listen(port, () => {
